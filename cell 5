@@ -1,0 +1,13 @@
+# Cell 5
+
+# Recreate the train_image_generator with augmentation
+train_image_generator = ImageDataGenerator(
+    rescale=1./255, # Always rescale
+    rotation_range=40,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    shear_range=0.2,
+    zoom_range=0.2,
+    horizontal_flip=True,
+    fill_mode='nearest'
+)
