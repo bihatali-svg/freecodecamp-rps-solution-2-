@@ -1,0 +1,31 @@
+# Cell 10
+
+# Get raw predictions (probabilities are in the range [0, 1])
+raw_probabilities = model.predict(test_data_gen)
+
+# Convert the raw probabilities to a list of integers [0, 1, 0, 1...] 
+# or keep them as floating point predictions (which is better for the plotImages function)
+# Since plotImages wants a list for probabilities, we use the raw output.
+
+# Ensure the probabilities list has the correct shape for plotImages
+probabilities = raw_probabilities.flatten()
+
+# Get the test images for plotting
+# The test_data_gen is a generator, so we need to extract the images from it.
+# Since it was created with shuffle=False, the order is maintained.
+
+# Get all batches from the test generator
+test_images = []
+for i in range(len(test_data_gen)):
+    batch = next(test_data_gen)
+    test_images.append(batch[0])
+    
+# Concatenate all batches into a single array
+import numpy as np
+test_images = np.concatenate(test_images, axis=0)
+
+# Only take the first 50 images, as there are 50 in the test set
+test_images = test_images[:50]
+
+# Call the plotImages function (assuming it's defined in cell 4)
+plotImages(test_images, probabilities)
